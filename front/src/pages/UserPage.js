@@ -16,18 +16,7 @@ const initialValues = {
     experiences: "",
     skills: "",
 }
-const onSubmit = values => {
-    const updateData = async () => {
-        try {
-            const response = await axios.post("/user", values)
-            console.log(response);
-        } catch (error) {
 
-        }
-    }
-    updateData()
-
-}
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 const validationSchema = Yup.object({
     name: Yup.string().required("Required"),
@@ -40,6 +29,7 @@ const validationSchema = Yup.object({
 
 const UserPage = () => {
     const [userData, setUserData] = useState([])
+    const [posted, setPosted] = useState(false)
     const name = useParams()
     console.log(userData);
     useEffect(() => {
@@ -53,6 +43,19 @@ const UserPage = () => {
         }
         getData()
     }, [])
+    const onSubmit = values => {
+        const updateData = async () => {
+            try {
+                const response = await axios.post("/user", values)
+                console.log(response);
+                setPosted(true)
+            } catch (error) {
+
+            }
+        }
+        updateData()
+
+    }
 
     return (
         <div className='content-wrapper'>
@@ -75,6 +78,9 @@ const UserPage = () => {
                         <Button type="submit" text="Update"></Button>
                     </Form>
                 </Formik>
+                {posted && <div className="alert alert-success" role="alert">
+                    Your Cv information is saved!
+                </div>}
             </div>
         </div>
     )

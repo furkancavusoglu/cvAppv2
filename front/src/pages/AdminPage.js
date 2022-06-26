@@ -1,39 +1,38 @@
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import UserDetails from '../components/UserDetails'
 
 const AdminPage = () => {
-    const [mock, setMock] = useState([])
-
+    const [cvData, setCvData] = useState([])
+    console.log(cvData);
     useEffect(() => {
-        setMock([{
-            name: "Furkan C",
-            email: "cfurkan@gmail.com",
-            skills: "java",
-            phoneNumber: "5312227847",
-            school: "ESTU",
-            experiences: "yok",
-        }, {
-            name: "Tolga",
-            email: "tolga@mail.com",
-            skills: "java",
-            phoneNumber: "5312227847",
-            school: "ESTU",
-            experiences: "yok",
-        }])
+        const fetch = async () => {
+            const response = await axios.get("/admin")
+            const users = response.data
+            let data = [];
+            users.map(user => (
+                data.push(user.userCv)
+            ))
+            data = data.filter(datum => datum !== null)
+            setCvData(data)
+        }
+        fetch()
     }, [])
 
     return (
         <div className='content-wrapper'>
             <div className="content-inner">
                 <h2>USER CVs </h2>
-                {
-                    mock.map((user, index) => {
-                        return (<UserDetails key={index} details={user} />)
-                    })
-                }
+                {cvData.map((cv, index) => {
+                    return <UserDetails key={index} details={cv} />
+                })}
             </div>
         </div>
     )
 }
 
 export default AdminPage
+
+/*                    mock.map((user, index) => {
+                        return (<UserDetails key={index} details={user} />)
+                    }) */

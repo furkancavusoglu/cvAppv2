@@ -1,7 +1,8 @@
-package cvappv2;
+package cvappv2.entity;
 
 
 
+import cvappv2.entity.Cv;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

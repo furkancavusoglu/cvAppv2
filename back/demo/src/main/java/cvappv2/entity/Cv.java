@@ -1,4 +1,4 @@
-package cvappv2;
+package cvappv2.entity;
 
 
 import lombok.AllArgsConstructor;

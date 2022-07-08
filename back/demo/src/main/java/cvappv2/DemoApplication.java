@@ -2,6 +2,8 @@ package cvappv2;
 
 import cvappv2.data.CvRepository;
 import cvappv2.data.CvUserRepository;
+import cvappv2.entity.Cv;
+import cvappv2.entity.CvUser;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

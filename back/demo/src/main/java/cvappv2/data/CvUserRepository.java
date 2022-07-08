@@ -1,6 +1,6 @@
 package cvappv2.data;
 
-import cvappv2.CvUser;
+import cvappv2.entity.CvUser;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package cvappv2.controller;
 
-import cvappv2.CvUser;
+import cvappv2.entity.CvUser;
 import cvappv2.data.CvUserRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

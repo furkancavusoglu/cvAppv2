@@ -25,7 +25,7 @@ const LoginPage = () => {
         const fetch = async () => {
             try {
                 const response = await axios.post(url, values)
-                if (response.data.username === "furkan") {
+                if (response.data.username === "furkan" || response.data.username === "tolga") {
                     navigate(`/user/${response.data.username}`)
                 } else {
                     navigate("/admin")

@@ -46,7 +46,7 @@ const UserPage = () => {
     const onSubmit = values => {
         const updateData = async () => {
             try {
-                const response = await axios.post("/user", values)
+                const response = await axios.put(`/user/${name.username}`, values)
                 console.log(response);
                 setPosted(true)
             } catch (error) {

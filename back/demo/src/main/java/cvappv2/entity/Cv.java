@@ -4,11 +4,9 @@ package cvappv2.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,7 +14,6 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 public class Cv {
     @Id
-    @GeneratedValue
     private Long id;
 
     private String name;

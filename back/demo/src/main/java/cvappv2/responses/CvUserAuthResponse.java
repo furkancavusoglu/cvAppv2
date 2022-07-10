@@ -1,28 +1,16 @@
-package cvappv2.entity;
-
-
+package cvappv2.responses;
 
 import cvappv2.entity.Cv;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class CvUser {
-    @Id
-    private Long id;
+public class CvUserAuthResponse {
 
     private String username;
 
     private String password;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Cv userCv;
-
 }
-

@@ -31,7 +31,6 @@ const UserPage = () => {
     const [userData, setUserData] = useState([])
     const [posted, setPosted] = useState(false)
     const name = useParams()
-    console.log(userData);
     useEffect(() => {
         const getData = async () => {
             try {

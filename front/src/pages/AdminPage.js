@@ -4,7 +4,6 @@ import UserDetails from '../components/UserDetails'
 
 const AdminPage = () => {
     const [cvData, setCvData] = useState([])
-    console.log(cvData);
     useEffect(() => {
         const fetch = async () => {
             const response = await axios.get("/admin")

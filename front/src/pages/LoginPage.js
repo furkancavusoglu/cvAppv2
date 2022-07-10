@@ -24,7 +24,9 @@ const LoginPage = () => {
     const onSubmit = values => {
         const fetch = async () => {
             try {
-                const response = await axios.post(url, values)
+                const { username, password } = values;
+                const response = await axios.post(url,{username,password})
+                console.log(response);
                 if (response.data.username === "furkan" || response.data.username === "tolga") {
                     navigate(`/user/${response.data.username}`)
                 } else {

@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CvUserAuthResponse {
-
     private String username;
-
-    private String password;
+    private String jwt;
 }

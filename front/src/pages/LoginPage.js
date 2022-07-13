@@ -19,19 +19,16 @@ const validationSchema = Yup.object({
 
 const LoginPage = () => {
     const [checkAuth, setCheckAuth] = useState(true);
-    const url = "/login"
     let navigate = useNavigate();
     const onSubmit = values => {
         const fetch = async () => {
             try {
                 const { username, password } = values;
-                const response = await axios.post(url,{username,password})
-                console.log(response);
-                if (response.data.username === "furkan" || response.data.username === "tolga") {
-                    navigate(`/user/${response.data.username}`)
-                } else {
-                    navigate("/admin")
-                }
+                const response = await axios.post("/login/auth",{username,password})
+                const login = await axios.post("/login",values,{headers:{
+                    "Authorization":response.data
+                }})
+                console.log(login);
             } catch (error) {
                 setCheckAuth(!checkAuth)
             }

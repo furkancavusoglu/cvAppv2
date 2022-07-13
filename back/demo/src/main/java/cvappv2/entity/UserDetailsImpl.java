@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,22 +21,15 @@ public class UserDetailsImpl implements UserDetails {
 
     private String password;
 
-    private Cv userCv;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
+    public static UserDetailsImpl create(CvUser user) {
+        List<GrantedAuthority> authorityList = new ArrayList<>();
+        authorityList.add( new SimpleGrantedAuthority(user.getRole().getRole()));
+        System.out.println("Details:" + user.getUsername() + ":" + user.getRole());
+        return new UserDetailsImpl(user.getId(), user.getUsername(), user.getPassword(),authorityList);
     }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
 
     @Override
     public boolean isAccountNonExpired() {

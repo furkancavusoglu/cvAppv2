@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserDetailsService {
         Optional<CvUser> getUser = repo.findCvUserByUsername(username);
         if (getUser.isPresent()) {
             CvUser user = getUser.get();
-            return new UserDetailsImpl(user.getId(), user.getUsername(), user.getPassword(), user.getUserCv());
+            return UserDetailsImpl.create(user);
         } else throw new UsernameNotFoundException("Username not found");
     }
 }

@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CvUserService {
     @Autowired
     UserServiceImpl service;
+    @Autowired
     CvUserRepository cvUserRepository;
 
     public CvUserService(CvUserRepository cvUserRepository) {
@@ -27,21 +28,5 @@ public class CvUserService {
     public CvUser getUserByUsername(String username) {
         return this.cvUserRepository.findCvUserByUsername(username).orElse(null);
     }
-//    public ResponseEntity<?> authorize(CvUser user) {
-//        Optional<CvUser> data = cvUserRepository.findCvUserByUsername(user.getUsername());
-//        if (data.isPresent() && data.get().getPassword().equals(user.getPassword())) {
-//            return new ResponseEntity<>(data.get(), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
-//        }
-//    }
-    public ResponseEntity<?> authorize(CvUserAuthRequest request) {
-        UserDetails userAuth;
-        try {
-            userAuth = service.loadUserByUsername(request.getUsername());
-        } catch (UsernameNotFoundException e) {
-            return new ResponseEntity<>("Bad Credentials", HttpStatus.UNAUTHORIZED);
-        }
-        return new ResponseEntity<>(new CvUserAuthResponse(userAuth.getUsername(),userAuth.getPassword()),HttpStatus.OK);
-    }
+
 }

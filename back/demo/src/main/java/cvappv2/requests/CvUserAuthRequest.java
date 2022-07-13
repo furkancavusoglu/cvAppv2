@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CvUserAuthRequest {
     private String username;
-
     private String password;
 }

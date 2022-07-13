@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CvUserAuthResponse {
     private String username;
+    private String role;
     private String jwt;
+
 }

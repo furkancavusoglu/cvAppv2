@@ -2,10 +2,7 @@ package cvappv2.controller;
 
 
 import cvappv2.entity.Cv;
-import cvappv2.entity.CvUser;
-import cvappv2.data.CvUserRepository;
 import cvappv2.service.CvService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

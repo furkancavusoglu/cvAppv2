@@ -3,7 +3,6 @@ package cvappv2.service;
 import cvappv2.data.CvUserRepository;
 import cvappv2.entity.Cv;
 import cvappv2.entity.CvUser;
-import cvappv2.data.CvRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,13 +11,10 @@ import java.util.Optional;
 
 @Service
 public class CvService {
-
-    private CvRepository cvRepository;
     private CvUserRepository cvUserRepository;
 
-    CvService(CvRepository cvRepository, CvUserRepository cvUserRepository) {
+    CvService(CvUserRepository cvUserRepository) {
         this.cvUserRepository = cvUserRepository;
-        this.cvRepository = cvRepository;
     }
 
 

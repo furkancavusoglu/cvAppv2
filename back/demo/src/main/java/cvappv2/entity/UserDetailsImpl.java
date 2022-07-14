@@ -26,7 +26,6 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl create(CvUser user) {
         List<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add( new SimpleGrantedAuthority(user.getRole().getRole()));
-        System.out.println("Details:" + user.getUsername() + ":" + user.getRole());
         return new UserDetailsImpl(user.getId(), user.getUsername(), user.getPassword(),authorityList);
     }
 

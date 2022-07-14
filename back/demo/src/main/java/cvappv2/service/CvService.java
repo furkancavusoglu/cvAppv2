@@ -3,6 +3,7 @@ package cvappv2.service;
 import cvappv2.data.CvUserRepository;
 import cvappv2.entity.Cv;
 import cvappv2.entity.CvUser;
+import cvappv2.requests.CvUpdateRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,15 @@ public class CvService {
         }
     }
 
-    public ResponseEntity<String> postCv(Cv cv, String username) {
-       CvUser user = cvUserRepository.findCvUserByUsername(username).get();
-       user.setUserCv(cv);
-       return ResponseEntity.ok("Cv updated");
+    public ResponseEntity<String> postCv(CvUpdateRequest cv, String username) {
+        CvUser user = cvUserRepository.findCvUserByUsername(username).get();
+        user.getUserCv().setName(cv.getName());
+        user.getUserCv().setPhoneNumber(cv.getPhoneNumber());
+        user.getUserCv().setSkills(cv.getSkills());
+        user.getUserCv().setSchool(cv.getSchool());
+        user.getUserCv().setExperiences(cv.getExperiences());
+        user.getUserCv().setEmail(cv.getEmail());
+        cvUserRepository.save(user);
+        return ResponseEntity.ok("Cv updated");
     }
 }

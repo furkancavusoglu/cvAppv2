@@ -23,19 +23,27 @@ const LoginPage = () => {
     const onSubmit = values => {
         const fetch = async () => {
             try {
-                const { username, password } = values;
-                const response = await axios.post("/login/auth",{username,password})
-                const login = await axios.post("/login",values,{headers:{
-                    "Authorization":response.data
-                }})
-                console.log(login);
+                const response = await axios.post("/login", values)
+                if (response.data.role === "[ROLE_USER]") {
+                    navigate(`/user/${response.data.username}`, {
+                        state: {
+                            jwt: response.data.jwt,
+                            username: response.data.username
+                        }
+                    })
+                } else {
+                    navigate("/admin", {
+                        state: {
+                            jwt: response.data.jwt
+                        }
+                    })
+                }
             } catch (error) {
                 setCheckAuth(!checkAuth)
             }
         }
         fetch()
     }
-
 
     return (
         <div className="content-wrapper">

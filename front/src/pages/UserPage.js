@@ -3,10 +3,9 @@ import Button from '../components/Button'
 import Input from '../components/Input'
 import { Formik, Form } from 'formik'
 import * as Yup from "yup"
-import { useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { useState } from 'react'
-
 
 const initialValues = {
     name: "",
@@ -30,22 +29,40 @@ const validationSchema = Yup.object({
 const UserPage = () => {
     const [userData, setUserData] = useState([])
     const [posted, setPosted] = useState(false)
-    const name = useParams()
+    const [authorized, setAuthorized] = useState(true)
+    const [jwt, setJwt] = useState("")
+    const [username, setUsername] = useState("")
+    const location = useLocation()
+
     useEffect(() => {
         const getData = async () => {
+            if (location.state === null) {
+                setAuthorized(false)
+                return
+            }
+            setJwt(location.state.jwt)
+            setUsername(location.state.username)
             try {
-                const response = await axios.get(`/user/${name.username}`)
+                const response = await axios.get(`/user/${username}`, {
+                    headers: {
+                        "Authorization": `Bearer ${jwt}`
+                    }
+                })
                 setUserData(response.data)
             } catch (error) {
                 console.log(error)
             }
         }
         getData()
-    }, [])
+    })
     const onSubmit = values => {
         const updateData = async () => {
             try {
-                const response = await axios.put(`/user/${name.username}`, values)
+                const response = await axios.put(`/user/${username}`, values, {
+                    headers: {
+                        "Authorization": `Bearer ${jwt}`
+                    }
+                })
                 console.log(response);
                 setPosted(true)
             } catch (error) {
@@ -53,33 +70,35 @@ const UserPage = () => {
             }
         }
         updateData()
-
     }
 
     return (
         <div className='content-wrapper'>
             <div className="content-inner">
-                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
-                    <Form>
-                        <h3>Your Cv</h3>
-                        <Input label={"name"} type={"text"} id={"name"} name={"name"}
-                            placeHolder={userData.name} />
-                        <Input label={"email"} type={"email"} id={"email"} name={"email"}
-                            placeHolder={userData.email} />
-                        <Input label={"phoneNumber"} type={"text"} id={"phoneNumber"} name={"phoneNumber"}
-                            placeHolder={userData.phoneNumber} />
-                        <Input label={"school"} type={"text"} id={"school"} name={"school"}
-                            placeHolder={userData.school} />
-                        <Input label={"experiences"} type={"text"} id={"experiences"} name={"experiences"}
-                            placeHolder={userData.experiences} />
-                        <Input label={"skills"} type={"text"} id={"skills"} name={"skills"}
-                            placeHolder={userData.skills} />
-                        <Button type="submit" text="Update"></Button>
-                    </Form>
-                </Formik>
-                {posted && <div className="alert alert-success" role="alert">
-                    Your Cv information is saved!
-                </div>}
+                {!authorized ? <h1 style={{ color: "red" }} >UNAUTHORIZED!</h1> :
+                    <>
+                        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
+                            <Form>
+                                <h3>Your Cv</h3>
+                                <Input label={"name"} type={"text"} id={"name"} name={"name"}
+                                    placeHolder={userData.name} />
+                                <Input label={"email"} type={"email"} id={"email"} name={"email"}
+                                    placeHolder={userData.email} />
+                                <Input label={"phoneNumber"} type={"text"} id={"phoneNumber"} name={"phoneNumber"}
+                                    placeHolder={userData.phoneNumber} />
+                                <Input label={"school"} type={"text"} id={"school"} name={"school"}
+                                    placeHolder={userData.school} />
+                                <Input label={"experiences"} type={"text"} id={"experiences"} name={"experiences"}
+                                    placeHolder={userData.experiences} />
+                                <Input label={"skills"} type={"text"} id={"skills"} name={"skills"}
+                                    placeHolder={userData.skills} />
+                                <Button type="submit" text="Update"></Button>
+                            </Form>
+                        </Formik>
+                        {posted && <div className="alert alert-success" role="alert">
+                            Your Cv information is saved!
+                        </div>}
+                    </>}
             </div>
         </div>
     )

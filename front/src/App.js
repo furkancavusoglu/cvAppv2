@@ -7,14 +7,14 @@ import Navbar from './components/Navbar';
 import { Routes, Route } from "react-router-dom"
 import NotFoundPage from './pages/NotFoundPage';
 
-
 function App() {
+
   return (
     <div className='App'>
       <Navbar />
       <Routes>
         <Route index element={<LoginPage />} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/login' element={<LoginPage/>} />
         <Route path='/user/:username' element={<UserPage />} />
         <Route path='/admin' element={<AdminPage />} />
         <Route path='*' element={<NotFoundPage />} />
